@@ -1,0 +1,63 @@
+{% extends 'sending/base.html' %}
+{% load my_tags %}
+{% block content %}
+
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">{{ title }}</h1>
+            <h2 class="fw-light">Сервер для рассылки сообщений</h2>
+            {% if user.is_authenticated %}
+            <p>
+                <a href="{% url 'sending:clients' %}" class="btn btn-primary my-2">Работа с клиентами сервера</a>
+                <a href="{% url 'sending:blasts' %}" class="btn btn-primary my-2">Работа с рассылками</a>
+                <a href="{% url 'sending:message' %}" class="btn btn-primary my-2">Работа с сообщениями</a>
+                <a href="{% url 'sending:DeliveryAttempt'%}" class="btn btn-primary my-2">Отчет о проведенных
+                    рассылок</a>
+                <a href="{% url 'blog:blog'%}" class="btn btn-primary my-2">Все блоги</a>
+            </p>
+            {% else %}
+            <p>
+                <a href="{% url 'users:login' %}" class="btn btn-primary my-2">Войти</a>
+                <a href="{% url 'users:register' %}" class="btn btn-primary my-2">Регистрация</a>
+            </p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+<section class="py-5 text-center container">
+<div class="col-12 mb-5">
+    <p class="card-text">Количество рассылок: {{ number_of_mailings }}</p>
+    <p class="card-text">Количество активных рассылок: {{ status }}</p>
+    <p class="card-text">Количество уникальных клиентов: {{ client_service }} </p>
+</div>
+</section>
+<div class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h2 class="fw-light">Три случайных блога</h2>
+        </div>
+    </div>
+</div>
+
+{% for object in blog %}
+<section class="py-5 text-center container">
+    <div class="col">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ object.title|title }}</h5>
+                <p class="card-text">{{ object.content|truncatechars:45 }}</p>
+                <p class="card-text">Просмотров: {{ object.views_count }}</p>
+                <p class="card-text">Публикатор: {{ object.user }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <a href="{% url 'blog:blog_detail' object.pk %}"
+                           class="btn btn-sm btn-outline-primary">Посмотреть блог</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+{% endblock %}

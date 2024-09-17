@@ -1,0 +1,26 @@
+{% extends 'sending/base.html' %}
+{% block content %}
+{% for object in blog %}
+<section class="py-5 text-center container">
+    <div class="col">
+        <div class="col">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title">{{ object.title|title }}</h3>
+                    <p class="card-text">{{ object.content }}</p>
+                    <p class="card-text">Создан: {{ object.created_at }}</p>
+                    <p class="card-text">Просмотров: {{ object.views_count }}</p>
+                    <p class="card-text">Публикатор: {{ object.user }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a href="{% url 'blog:blog_update' object.pk %}" class="btn btn-sm btn-outline-warning">Изменить</a>
+                            <a href="{% url 'blog:blog_delete' object.pk %}" class="btn btn-sm btn-outline-danger">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endfor %}
+{% endblock %}

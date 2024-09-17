@@ -1,0 +1,38 @@
+{% extends 'sending/base.html' %}
+{% block content %}
+
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">{{ title }}</h1>
+        </div>
+    </div>
+</section>
+<section class="py-5 text-center container">
+    <div class="col-12 mb-5">
+        <a class="btn btn-outline-primary btn-lg" href="{% url 'sending:index' %}">Предыдущая страница</a>
+        <a class="btn btn-outline-success btn-lg" href="{% url 'blog:blog_create' %}">Создать блог</a>
+    </div>
+</section>
+{% for object in blog %}
+<div class="col-12 mb-5">
+    <div class="col">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ object.title }}</h5>
+                <p class="card-text">{{ object.content|truncatechars:45 }}</p>
+                <p class="card-text">Дата публикации: {{ object.created_at }}</p>
+                <p class="card-text">Просмотров: {{ object.views_count }}</p>
+                <p class="card-text">Публикатор: {{ object.user }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <a href="{% url 'blog:blog_detail' object.pk %}"
+                           class="btn btn-sm btn-outline-primary">Посмотреть блог</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

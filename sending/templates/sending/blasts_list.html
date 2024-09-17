@@ -1,0 +1,45 @@
+{% extends 'sending/base.html' %}
+{% block content %}
+
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">{{ title }}</h1>
+        </div>
+    </div>
+</section>
+<section class="py-5 text-center container">
+<div class="col-12 mb-5">
+    <a class="btn btn-outline-primary btn-lg" href="{% url 'sending:index' %}">Предыдущая страница</a>
+    <a class="btn btn-outline-success btn-lg" href="{% url 'sending:blasts_create' %}">Создать рассылку</a>
+</div>
+</section>
+<section class="py-5 text-center container">
+<div class="col-12 mb-5">
+    <p class="card-text">Количество рассылок: {{ number_of_mailings }}</p>
+    <p class="card-text">Количество активных рассылок: {{ status }}</p>
+    <p class="card-text">Количество уникальных клиентов: {{ client_service }} </p>
+</div>
+</section>
+{% for object in blasts %}
+<div class="col">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">Тема рассылки: {{ object.title }}</h5>
+            <p class="card-text">Адреса получателей: {{ object.email }}</p>
+            <p class="card-text">Периодичность: {{ object.frequency }}</p>
+            <p class="card-text">Создана рассылка: {{ object.company }}</p>
+            <p class="card-text">Статус рассылки: {{ object.status }}</p>
+            <p class="card-text">Создана рассылка: {{ object.created_at }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    <a href="{% url 'sending:blasts_delete' object.pk %}" class="btn btn-sm btn-outline-danger">Удалить рассылку</a>
+                    <a href="{% url 'sending:blasts_update' object.pk %}" class="btn btn-sm btn-outline-warning">Редактирование рассылки</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+{% endblock %}

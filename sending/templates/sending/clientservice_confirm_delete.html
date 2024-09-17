@@ -1,0 +1,15 @@
+{% extends 'sending/base.html' %}
+{% block content %}
+<div class="col-lg-3 col-md-6 col-sm-12 ">
+    <div class="card mb-4 box-shadow">
+        <div class="card-body">
+            <form method="post" action="" class="form-floating">
+                {% csrf_token %}
+                <p>Хотите удалить "{{ object.email }}"?</p>
+                <button type="submit" class="btn btn-lg btn-block btn-outline-danger">Подтвердить</button>
+                <a href="{% url 'sending:clients' %}" class="btn btn-sm btn-outline-warning">Отмена</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

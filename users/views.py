@@ -7,16 +7,15 @@ from random import random
 import random
 
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import CreateView, UpdateView
-
+from django.views.generic import CreateView, UpdateView, ListView
 from config import settings
-from users.forms import UserRegisterForm, UserProfileForm
+from users.forms import UserRegisterForm, UserProfileForm, UserForm
 from users.models import User
 
 
@@ -78,9 +77,9 @@ def password_recovery(request):
             user.save()
 
             send_mail(
-                'Восстановление пароля в CataLog',
+                'Восстановление пароля в Mailing',
                 f'Ваш новый пароль: {new_password}',
-                'catalog.com',
+                'mailing.com',
                 [email],
                 fail_silently=False,
             )
@@ -99,3 +98,27 @@ class ProfileView(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+
+class UserListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
+    model = User
+    permission_required = 'users.view_user'
+
+    def get_context_data(self, *args, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        clients_items = User.objects.all()
+        context_data['users'] = clients_items
+        context_data['title'] = 'Пользователи ресурса'
+        return context_data
+
+
+class UserCreateView(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
+    model = User
+    permission_required = 'users.change_user'
+    success_url = reverse_lazy('users:users')
+    form_class = UserForm
+
+    # def get_context_data(self, *args, **kwargs):
+    #     context_data = super().get_context_data(**kwargs)
+    #     context_data['title'] = 'Пользователи ресурса'
+    #     return context_data

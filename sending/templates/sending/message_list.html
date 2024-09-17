@@ -1,0 +1,38 @@
+{% extends 'sending/base.html' %}
+{% block content %}
+
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">{{ title }}</h1>
+        </div>
+    </div>
+</section>
+<section class="py-5 text-center container">
+<div class="col-12 mb-5">
+    <a class="btn btn-outline-primary btn-lg" href="{% url 'sending:index' %}">Предыдущая страница</a>
+    <a class="btn btn-outline-success btn-lg" href="{% url 'sending:message_create' %}">Создать сообщение</a>
+</div>
+</section>
+{% for object in message %}
+<div class="col-12 mb-5">
+    <div class="col">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Тема рассылки: {{ object.title }}</h5>
+                <p class="card-text">Содержимое письма: {{ object.body }}</p>
+                <p class="card-text">Автор: {{ object.user }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <a href="{% url 'sending:message_delete' object.pk %}" class="btn btn-sm btn-outline-danger">Удалить
+                            сообщение</a>
+                        <a href="{% url 'sending:message_update' object.pk %}" class="btn btn-sm btn-outline-primary">Изменить
+                            сообщение</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

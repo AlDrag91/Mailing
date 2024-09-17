@@ -1,7 +1,8 @@
 {% extends 'sending/base.html' %}
 {% block content %}
 
-<div class="col-6">
+
+<section class="py-5 text-center container">
     <div class="card mb-4 box-shadow">
         <div class="card-header">
             <h4 class="my-0 font-weight-normal">Авторизация</h4>
@@ -15,5 +16,5 @@
         </div>
     </div>
     <a href="{% url 'users:generate_new_password' %}" class="btn btn-danger">Восстановить пароль</a>
-</div>
+</section>
 {% endblock %}

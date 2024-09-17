@@ -13,6 +13,9 @@ class ClientServiceAdmin(admin.ModelAdmin):
 class BlastsAdmin(admin.ModelAdmin):
     list_display = ('id', 'created_at', 'frequency', 'status', 'company', 'email', 'title')
 
+    def email(self, obj):
+        return ", ".join([str(rel) for rel in obj.many_to_many_field.all()])
+
 
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
@@ -21,4 +24,4 @@ class MessageAdmin(admin.ModelAdmin):
 
 @admin.register(DeliveryAttempt)
 class DeliveryAttemptAdmin(admin.ModelAdmin):
-    list_display = ('attempt_datetime', 'attempt_status', 'mail_server_response', 'email', 'title')
+    list_display = ('attempt_datetime', 'attempt_status', 'mail_server_response', 'title')
