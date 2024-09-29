@@ -5,7 +5,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from blog.models import Blog
 from sending.forms import ClientServiceForm, BlastsForm, MessageForm, ManagerBlastsForm
-from sending.management.commands.start_mailing import start_sending
+from sending.management.commands.tasks import start_sending
 from sending.models import ClientService, Blasts, Message, DeliveryAttempt
 
 
