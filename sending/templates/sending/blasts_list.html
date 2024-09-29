@@ -35,6 +35,7 @@
                 <div class="btn-group">
                     <a href="{% url 'sending:blasts_delete' object.pk %}" class="btn btn-sm btn-outline-danger">Удалить рассылку</a>
                     <a href="{% url 'sending:blasts_update' object.pk %}" class="btn btn-sm btn-outline-warning">Редактирование рассылки</a>
+                    <a href="{% url 'sending:forced' object.pk %}" class="btn btn-sm btn-outline-warning">Отправить</a>
                 </div>
             </div>
         </div>

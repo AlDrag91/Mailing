@@ -5,7 +5,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from blog.models import Blog
 from sending.forms import ClientServiceForm, BlastsForm, MessageForm, ManagerBlastsForm
-from sending.management.commands.tasks import start_sending
+from sending.management.commands.tasks import start_sending, send_emails
 from sending.models import ClientService, Blasts, Message, DeliveryAttempt
 
 
@@ -20,6 +20,14 @@ def index(request):
     context['client_service'] = client_service.count()
 
     return render(request, 'sending/home.html', context)
+
+
+"""Принудительная отправка рассылки"""
+
+
+def forced(request, pk):
+    send_emails(Blasts.objects.filter(pk=pk))
+    return render(request, 'sending/blasts_list.html')
 
 
 """Контролеры работы с клиентами сервера"""

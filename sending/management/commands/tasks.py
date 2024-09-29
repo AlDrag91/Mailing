@@ -45,12 +45,12 @@ def send_emails(blasts):
                                  [email],
                                  fail_silently=False)
             if response.status_code == 200:
-                attempt.status = 'успешно отправлено'
+                attempt.attempt_status = 'успешно отправлено'
             else:
                 raise Exception("Ошибка на стороне сервиса")  # Пример обработки ошибки
 
         except Exception as e:
-            attempt.status = 'ошибка'
+            attempt.attempt_status = 'ошибка'
             attempt.error_message = str(e)
             break  # Первая ошибка завершает отправку
 

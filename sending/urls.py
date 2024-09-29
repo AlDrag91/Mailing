@@ -4,12 +4,14 @@ from django.urls import path
 
 from sending.views import index, ClientServiceListView, ClientServiceCreateView, ClientServiceUpdateView, \
     ClientServiceDeleteView, BlastsListView, BlastsCreateView, BlastsDeleteView, MessageListView, MessageCreateView, \
-    MessageDeleteView, DeliveryAttemptListView, MessageUpdateView, BlastsUpdateView
+    MessageDeleteView, DeliveryAttemptListView, MessageUpdateView, BlastsUpdateView, forced
 
 app_name = SendingConfig.name
 
 urlpatterns = [
     path('', index, name='index'),
+
+    path('forced/<int:pk>/', forced, name='forced'),
 
     path('clients', ClientServiceListView.as_view(), name='clients'),
     path('clients_create/', ClientServiceCreateView.as_view(), name='clients_create'),

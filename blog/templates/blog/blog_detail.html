@@ -11,6 +11,7 @@
                     <p class="card-text">Создан: {{ object.created_at }}</p>
                     <p class="card-text">Просмотров: {{ object.views_count }}</p>
                     <p class="card-text">Публикатор: {{ object.user }}</p>
+                    <img src="{{ object.picture.url }}">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
                             <a href="{% url 'blog:blog_update' object.pk %}" class="btn btn-sm btn-outline-warning">Изменить</a>
